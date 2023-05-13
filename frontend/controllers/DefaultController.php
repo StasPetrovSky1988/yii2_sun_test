@@ -23,8 +23,8 @@ class DefaultController extends Controller
     public function actionIndex($category_id = null)
     {
         $categories = Category::find()->all();
-        $query = Product::find();
 
+        $query = Product::find();
         if ($category_id) $query->where(['category_id' => $category_id]);
 
         $products = new ActiveDataProvider([
@@ -63,7 +63,7 @@ class DefaultController extends Controller
     {
         $query = "select cat.name, (sum(oi.quantity) / (select sum(quantity) from order_item) * 100) summary
                   from category cat
-                      inner join product p on cat.id = p.category_id
+                      left join product p on cat.id = p.category_id
                       inner join order_item oi on p.id = oi.product_id
                   group by cat.id ";
 

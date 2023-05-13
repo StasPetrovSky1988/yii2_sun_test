@@ -8,7 +8,7 @@
         <hr>
         <ul>
             <?php foreach ($summary as $k => $v):?>
-                <li><b><?= $k?></b> - <?= round($v)?>%</li>
+                <li><b><?= $k?></b> - <?= round($v, 1)?>%</li>
             <?php endforeach;?>
         </ul>
     </div>
