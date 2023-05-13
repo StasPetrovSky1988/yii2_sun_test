@@ -4,11 +4,9 @@ use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 ?>
 
-
 <section>
     <div class="mt-5 offset-lg-3 col-lg-6">
         <h2>Добваить категорию: </h2>
-
         <hr>
         <?php $form = ActiveForm::begin([
         ]); ?>
@@ -23,5 +21,4 @@ use yii\bootstrap5\Html;
 
         <?php ActiveForm::end(); ?>
     </div>
-
 </section>

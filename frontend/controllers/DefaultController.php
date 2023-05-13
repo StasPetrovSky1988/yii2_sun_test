@@ -2,14 +2,11 @@
 
 namespace frontend\controllers;
 
-use common\models\AddProductForm;
 use common\models\Category;
 use common\models\Product;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\db\Query;
 use yii\helpers\ArrayHelper;
-use yii\helpers\VarDumper;
 use yii\web\Controller;
 
 class DefaultController extends Controller
@@ -25,24 +22,16 @@ class DefaultController extends Controller
 
     public function actionIndex($category_id = null)
     {
-        $catsProvider = new ActiveDataProvider([
-            'query' => Category::find(),
-        ]);
+        $categories = Category::find()->all();
+        $query = Product::find();
 
-        $categories = $catsProvider->getModels();
-
-        if ($category_id) {
-            $query = Product::find()->where(['category_id' => $category_id]);
-        } else {
-            $query = Product::find();
-        }
+        if ($category_id) $query->where(['category_id' => $category_id]);
 
         $products = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'pageSize' => 10,
             ],
-
         ]);
 
         return $this->render('index', [
@@ -61,7 +50,6 @@ class DefaultController extends Controller
             Yii::$app->session->addFlash('success' ,'Запись добавлена.');
             return $this->refresh();
         }
-
 
         return $this->render('addproduct', ['model' => $model, 'categories' => $categories]);
     }
@@ -83,8 +71,4 @@ class DefaultController extends Controller
 
         return $this->render('result', ['summary' => $summary]);
     }
-
-
-
-
 }
