@@ -11,24 +11,15 @@ use yii\web\Controller;
 
 class DefaultController extends Controller
 {
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => \yii\web\ErrorAction::class,
-            ],
-        ];
-    }
-
     public function actionIndex($category_id = null)
     {
         $categories = Category::find()->all();
 
-        $query = Product::find();
-        if ($category_id) $query->where(['category_id' => $category_id]);
+        $queryProduct = Product::find();
+        if ($category_id) $queryProduct->where(['category_id' => $category_id]);
 
         $products = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $queryProduct,
             'pagination' => [
                 'pageSize' => 10,
             ],
